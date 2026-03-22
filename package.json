@@ -1,0 +1,28 @@
+{
+  "name": "robotics-pick-and-place",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "predev": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$p = if ($env:INIT_CWD) { $env:INIT_CWD } else { (Get-Location).Path }; $p = $p -replace '^Microsoft\\.PowerShell\\.Core\\\\FileSystem::','' -replace '^\\\\\\\\\\?\\\\',''; & (Join-Path $p 'scripts\\ensure-dev-port.ps1')\"",
+    "dev": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$p = if ($env:INIT_CWD) { $env:INIT_CWD } else { (Get-Location).Path }; $p = $p -replace '^Microsoft\\.PowerShell\\.Core\\\\FileSystem::','' -replace '^\\\\\\\\\\?\\\\',''; Set-Location $p; node .\\node_modules\\vite\\bin\\vite.js --host 127.0.0.1 --port 3000\"",
+    "build": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$p = if ($env:INIT_CWD) { $env:INIT_CWD } else { (Get-Location).Path }; $p = $p -replace '^Microsoft\\.PowerShell\\.Core\\\\FileSystem::','' -replace '^\\\\\\\\\\?\\\\',''; Set-Location $p; node .\\node_modules\\vite\\bin\\vite.js build\"",
+    "preview": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$p = if ($env:INIT_CWD) { $env:INIT_CWD } else { (Get-Location).Path }; $p = $p -replace '^Microsoft\\.PowerShell\\.Core\\\\FileSystem::','' -replace '^\\\\\\\\\\?\\\\',''; Set-Location $p; node .\\node_modules\\vite\\bin\\vite.js preview\"",
+    "sync:menagerie": "powershell -ExecutionPolicy Bypass -File ./scripts/sync-menagerie-assets.ps1"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-markdown": "^10.1.0",
+    "lucide-react": "^0.552.0",
+    "uuid": "^13.0.0",
+    "three": "^0.181.0",
+    "mujoco_wasm": "npm:mujoco-js@0.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "Robotics Pick and Place",
+  "description": "Simulated Franka Panda pick-and-place workspace with model-assisted scene analysis.",
+  "requestFramePermissions": []
+}
