@@ -6,6 +6,7 @@ import react from '@vitejs/plugin-react';
 
 const LOG_DIR = path.resolve(__dirname, 'logs');
 const LOG_FILE = path.join(LOG_DIR, 'experiment-log.jsonl');
+const PAGES_BASE = '/robotics-pick-and-place/';
 
 function createExperimentLogMiddleware() {
   return async (req: { method?: string; url?: string; on: (event: string, cb: (chunk?: Buffer) => void) => void }, res: { statusCode: number; setHeader: (name: string, value: string) => void; end: (body?: string) => void }, next: () => void) => {
@@ -92,17 +93,24 @@ function experimentLogPlugin() {
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
+  // Absent key stays an empty string so `vite build` succeeds with no .env.
+  // A real key is only read from a local, gitignored env file and is never
+  // required for the static GitHub Pages bundle.
+  const nuwaApiKey = env.NUWA_API_KEY ?? '';
 
   return {
+    // Dev stays at /. Production matches the GitHub Pages project path.
+    // `npm run build -- --base ` still overrides this in Actions.
+    base: mode === 'production' ? PAGES_BASE : '/',
     server: {
       port: 3000,
       host: '0.0.0.0',
     },
     plugins: [react(), experimentLogPlugin()],
     define: {
-      'process.env.NUWA_API_KEY': JSON.stringify(env.NUWA_API_KEY),
-      'process.env.NUWA_BASE_URL': JSON.stringify(env.NUWA_BASE_URL),
-      'process.env.NUWA_MODEL': JSON.stringify(env.NUWA_MODEL),
+      'process.env.NUWA_API_KEY': JSON.stringify(nuwaApiKey),
+      'process.env.NUWA_BASE_URL': JSON.stringify(env.NUWA_BASE_URL ?? ''),
+      'process.env.NUWA_MODEL': JSON.stringify(env.NUWA_MODEL ?? ''),
     },
     resolve: {
       alias: {
