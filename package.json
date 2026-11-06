@@ -6,7 +6,7 @@
   "scripts": {
     "predev": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$p = if ($env:INIT_CWD) { $env:INIT_CWD } else { (Get-Location).Path }; $p = $p -replace '^Microsoft\\.PowerShell\\.Core\\\\FileSystem::','' -replace '^\\\\\\\\\\?\\\\',''; & (Join-Path $p 'scripts\\ensure-dev-port.ps1')\"",
     "dev": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$p = if ($env:INIT_CWD) { $env:INIT_CWD } else { (Get-Location).Path }; $p = $p -replace '^Microsoft\\.PowerShell\\.Core\\\\FileSystem::','' -replace '^\\\\\\\\\\?\\\\',''; Set-Location $p; node .\\node_modules\\vite\\bin\\vite.js --host 127.0.0.1 --port 3000\"",
-    "build": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$p = if ($env:INIT_CWD) { $env:INIT_CWD } else { (Get-Location).Path }; $p = $p -replace '^Microsoft\\.PowerShell\\.Core\\\\FileSystem::','' -replace '^\\\\\\\\\\?\\\\',''; Set-Location $p; node .\\node_modules\\vite\\bin\\vite.js build\"",
+    "build": "vite build",
     "preview": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$p = if ($env:INIT_CWD) { $env:INIT_CWD } else { (Get-Location).Path }; $p = $p -replace '^Microsoft\\.PowerShell\\.Core\\\\FileSystem::','' -replace '^\\\\\\\\\\?\\\\',''; Set-Location $p; node .\\node_modules\\vite\\bin\\vite.js preview\"",
     "sync:menagerie": "powershell -ExecutionPolicy Bypass -File ./scripts/sync-menagerie-assets.ps1"
   },
